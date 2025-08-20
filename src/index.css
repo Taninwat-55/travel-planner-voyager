@@ -1,1 +1,15 @@
 @import 'tailwindcss';
+
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Slab:ital,wght@0,100..700;1,100..700&display=swap');
+
+@theme {
+  font-family: 'Josefin Slab', serif;
+  background-color: #ffff;
+  primary-color: #F5F5F5;
+  secondary-color: #000000;
+  text-black: #000000;
+  text-white: #ffffff;
+  text-gray: #808080;
+
+}
+
