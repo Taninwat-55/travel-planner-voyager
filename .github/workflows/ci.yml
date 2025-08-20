@@ -11,28 +11,22 @@ on:
 
 # This defines the actual job that will run
 jobs:
-  # You can name the job anything, e.g., 'build', 'test'
   build:
-    # This is the name that will show up as the "status check"
-    name: Run Jest Tests
-    # The type of machine to run the job on
+    # This is the updated display name for your status check
+    name: Run Tests
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checks out your repository's code so the job can access it
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Step 2: Sets up the Node.js environment
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # Use a version of Node.js that matches your project
+          node-version: '20'
 
-      # Step 3: Install your project's dependencies
       - name: Install dependencies
-        run: npm ci # 'npm ci' is often faster and safer for automated environments than 'npm install'
+        run: npm ci
 
-      # Step 4: Run your tests!
       - name: Run tests
         run: npm test
