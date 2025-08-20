@@ -1,20 +1,21 @@
 import { useState, useEffect } from 'react';
 
-export default function HotelFetch() {
+export default function HotelList({ query }) {
   const [hotels, setHotels] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const API_KEY = import.meta.env.VITE_HOTEL_API_KEY;
 
-  const fetchHotels = async () => {
+  const fetchHotels = async (searchQuery) => {
     setLoading(true);
     setError(null);
+    setHotels([]);
 
     try {
       const params = new URLSearchParams({
         engine: 'google_hotels',
-        q: 'Stockholm, Sweden',
+        q: searchQuery,
         check_in_date: '2025-09-15',
         check_out_date: '2025-09-17',
         api_key: API_KEY,
@@ -34,25 +35,40 @@ export default function HotelFetch() {
   };
 
   useEffect(() => {
-    fetchHotels();
-  }, []); 
+    if (query) {
+      fetchHotels(query);
+    }
+  }, [query]);
 
   return (
-    <div>
-      {loading && <p>Laddar hotell...</p>}
-      {error && <p style={{ color: 'red' }}>Fel: {error}</p>}
+    <div className='p-4'>
+      {loading && <p className='text-center text-lg'>Laddar hotell...</p>}
+      {error && (
+        <p className='text-center text-lg text-red-600'>Fel: {error}</p>
+      )}
 
-      <div>
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
         {hotels.map((hotel, index) => (
-          <div key={index}>
+          <div
+            key={hotel.gps_coordinates || index}
+            className='bg-white rounded-lg shadow-md overflow-hidden'
+          >
             {hotel.images?.[0] && (
-              <img src={hotel.images[0].thumbnail} alt={hotel.name} />
+              <img
+                src={hotel.images[0].thumbnail}
+                alt={hotel.name}
+                className='w-full h-48 object-cover'
+              />
             )}
-            <h3>{hotel.name}</h3>
-            <p>15-17 September 2025</p>
-            {hotel.rate_per_night && (
-              <p>{hotel.rate_per_night.lowest} per natt</p>
-            )}
+            <div className='p-4'>
+              <h3 className='text-xl font-bold'>{hotel.name}</h3>
+              <p className='text-gray-600'>15-17 September 2025</p>
+              {hotel.rate_per_night && (
+                <p className='font-semibold mt-2'>
+                  {hotel.rate_per_night.lowest} per natt
+                </p>
+              )}
+            </div>
           </div>
         ))}
       </div>
