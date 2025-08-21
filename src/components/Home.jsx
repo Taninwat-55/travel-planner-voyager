@@ -19,7 +19,6 @@ export default function Home({ query }) {
         q: searchQuery,
         check_in_date: "2025-09-15",
         check_out_date: "2025-09-17",
-        api_key: API_KEY,
       });
 
       const response = await fetch(`/api/search?${params}`);
