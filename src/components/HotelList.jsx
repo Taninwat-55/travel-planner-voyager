@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import HotelCard from "./HotelCard";
+import { useState, useEffect } from 'react';
+import HotelCard from './HotelCard';
 
 export default function HotelList({ query }) {
   const [hotels, setHotels] = useState([]);
@@ -15,10 +15,10 @@ export default function HotelList({ query }) {
 
     try {
       const params = new URLSearchParams({
-        engine: "google_hotels",
+        engine: 'google_hotels',
         q: searchQuery,
-        check_in_date: "2025-09-15",
-        check_out_date: "2025-09-17",
+        check_in_date: '2025-09-15',
+        check_out_date: '2025-09-17',
         api_key: API_KEY,
       });
 
@@ -42,13 +42,13 @@ export default function HotelList({ query }) {
   }, [query]);
 
   return (
-    <div className="p-4">
-      {loading && <p className="text-center text-lg">Laddar hotell...</p>}
+    <div className='p-4'>
+      {loading && <p className='text-center text-lg'>Laddar hotell...</p>}
       {error && (
-        <p className="text-center text-lg text-red-600">Fel: {error}</p>
+        <p className='text-center text-lg text-red-600'>Fel: {error}</p>
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
         {hotels.map((hotel, index) => (
           <HotelCard key={hotel.gps_coordinates || index} hotel={hotel} />
         ))}
