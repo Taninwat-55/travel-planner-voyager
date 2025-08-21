@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 export default function HotelCard({ hotel }) {
-  const hotelId = encodeURIComponent(hotel.gps_coordinates);
+  const hotelId = hotel.data_id || encodeURIComponent(hotel.gps_coordinates);
 
   return (
     <Link
