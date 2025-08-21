@@ -2,10 +2,6 @@ import { useState, useEffect } from 'react';
 import SearchForm from '../components/SearchForm';
 import HotelCard from '../components/HotelCard';
 
-// Denna komponent hanterar nu allt för startsidan:
-// 1. Håller reda på vad användaren söker efter.
-// 2. Renderar sökformuläret.
-// 3. Hämtar och visar hotellistan.
 export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [hotels, setHotels] = useState([]);
@@ -19,7 +15,7 @@ export default function HomePage() {
   };
 
   const fetchHotels = async (query) => {
-    if (!query) return; // Gör ingen sökning om fältet är tomt
+    if (!query) return;
 
     setLoading(true);
     setError(null);
@@ -54,14 +50,19 @@ export default function HomePage() {
   return (
     <>
       <SearchForm onSearch={handleSearch} />
-      
-      <div className="p-4">
-        {loading && <p className="text-center text-lg">Laddar hotell...</p>}
-        {error && <p className="text-center text-lg text-red-600">Fel: {error}</p>}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className='p-4'>
+        {loading && <p className='text-center text-lg'>Laddar hotell...</p>}
+        {error && (
+          <p className='text-center text-lg text-red-600'>Fel: {error}</p>
+        )}
+
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
           {hotels.map((hotel, index) => (
-            <HotelCard key={hotel.gps_coordinates || index} hotel={hotel} />
+            <HotelCard
+              key={hotel.data_id || hotel.name + index}
+              hotel={hotel}
+            />
           ))}
         </div>
       </div>
