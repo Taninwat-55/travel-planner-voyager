@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import HotelList from "./HotelList";
+import { useState, useEffect } from 'react';
+import HotelList from './HotelList';
 
 export default function Home({ query }) {
   const [hotels, setHotels] = useState([]);
@@ -15,10 +15,10 @@ export default function Home({ query }) {
 
     try {
       const params = new URLSearchParams({
-        engine: "google_hotels",
+        engine: 'google_hotels',
         q: searchQuery,
-        check_in_date: "2025-09-15",
-        check_out_date: "2025-09-17",
+        check_in_date: '2025-09-15',
+        check_out_date: '2025-09-17',
         api_key: API_KEY,
       });
 
@@ -42,10 +42,11 @@ export default function Home({ query }) {
   }, [query]);
 
   return (
-    <div className="p-4">
-      {loading && <p className="text-center text-lg">Laddar hotell...</p>}
-      {error && <p className="text-center text-lg text-red-600">Fel: {error}</p>}
-      {/* Här skickar vi hotellen vidare */}
+    <div className='p-4'>
+      {loading && <p className='text-center text-lg'>Laddar hotell...</p>}
+      {error && (
+        <p className='text-center text-lg text-red-600'>Fel: {error}</p>
+      )}
       <HotelList hotels={hotels} />
     </div>
   );
