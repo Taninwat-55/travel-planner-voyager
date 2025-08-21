@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import HotelFetch from './components/Home';
+import HotelFetch from './components/HotelList';
 import SearchForm from './components/SearchForm';
 
 function App() {

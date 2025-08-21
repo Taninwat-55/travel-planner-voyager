@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import HotelList from "./HotelList";
+import HotelCard from "./HotelCard";
 
-export default function Home({ query }) {
+export default function HotelList({ query }) {
   const [hotels, setHotels] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -44,9 +44,15 @@ export default function Home({ query }) {
   return (
     <div className="p-4">
       {loading && <p className="text-center text-lg">Laddar hotell...</p>}
-      {error && <p className="text-center text-lg text-red-600">Fel: {error}</p>}
-      {/* Här skickar vi hotellen vidare */}
-      <HotelList hotels={hotels} />
+      {error && (
+        <p className="text-center text-lg text-red-600">Fel: {error}</p>
+      )}
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {hotels.map((hotel, index) => (
+          <HotelCard key={hotel.gps_coordinates || index} hotel={hotel} />
+        ))}
+      </div>
     </div>
   );
 }
