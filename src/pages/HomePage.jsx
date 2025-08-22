@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import SearchForm from '../components/SearchForm';
-import HotelList from '../components/HotelList'; // Importera HotelList
+import HotelList from '../components/HotelList'; 
+import HotelCard from '../components/HotelCard';
 
 export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -14,6 +15,8 @@ export default function HomePage() {
       <SearchForm onSearch={handleSearch} />
 
       <HotelList query={searchQuery} />
+
+      {/* <HotelCard/> */}
     </>
   );
 }
