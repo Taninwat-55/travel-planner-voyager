@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import SearchForm from '../components/SearchForm';
-import HotelList from '../components/HotelList'; // Importera HotelList
+import HotelList from '../components/HotelList';
 
 export default function HomePage() {
   const [inputValue, setInputValue] = useState(''); // for typing
@@ -8,6 +8,14 @@ export default function HomePage() {
 
   const handleSearch = () => {
     setSearchQuery(inputValue); // update search results only on submit
+  const [searchParams, setSearchParams] = useState(null);
+
+  const handleSearch = ({ city, checkIn, checkOut }) => {
+    setSearchParams({
+      city,
+      check_in_date: checkIn,
+      check_out_date: checkOut,
+    });
   };
 
   return (
@@ -25,7 +33,6 @@ export default function HomePage() {
             <h2 className="text-white text-4xl md:text-5xl mb-6 drop-shadow-lg font-[var(--font-family)]">
               Find your next stay
             </h2>
-
             {/* Search Bar */}
             <form
               onSubmit={(e) => {
@@ -53,6 +60,19 @@ export default function HomePage() {
 
         {/* HOTEL LIST */}
         <HotelList query={searchQuery} />
+            {/* Sökfält med datum */}
+            <SearchForm onSearch={handleSearch} />
+          </div>
+        </div>
+
+        {/* Hotell-lista */}
+        {searchParams && (
+          <HotelList
+            city={searchParams.city}
+            check_in_date={searchParams.check_in_date}
+            check_out_date={searchParams.check_out_date}
+          />
+        )}
       </section>
     </div>
   );
