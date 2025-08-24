@@ -1,13 +1,16 @@
 import { useState } from 'react';
 import SearchForm from '../components/SearchForm';
-import HotelList from '../components/HotelList'; // Importera HotelList
+import HotelList from '../components/HotelList';
 
 export default function HomePage() {
-  const [inputValue, setInputValue] = useState(''); // for typing
-  const [searchQuery, setSearchQuery] = useState(''); // for actual search
+  const [searchParams, setSearchParams] = useState(null);
 
-  const handleSearch = () => {
-    setSearchQuery(inputValue); // update search results only on submit
+  const handleSearch = ({ city, checkIn, checkOut }) => {
+    setSearchParams({
+      city,
+      check_in_date: checkIn,
+      check_out_date: checkOut,
+    });
   };
 
   return (
@@ -21,38 +24,23 @@ export default function HomePage() {
             className="w-full h-[450px] object-cover"
           />
           <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/30 text-center px-4">
-            {/* Title */}
             <h2 className="text-white text-4xl md:text-5xl mb-6 drop-shadow-lg font-[var(--font-family)]">
               Find your next stay
             </h2>
 
-            {/* Search Bar */}
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                handleSearch();
-              }}
-              className="flex items-center bg-[#f5f5f5] w-80 md:w-[450px] rounded-full shadow-md px-4 py-3 border border-gray-200"
-            >
-              <input
-                type="text"
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                placeholder="Search"
-                className="flex-1 bg-transparent outline-none text-gray-700 placeholder-gray-400 text-lg font-[var(--font-family)]"
-              />
-              <button
-                type="submit"
-                className="ml-2 bg-[#FF8C00] text-white px-5 py-2 rounded-full hover:bg-[#e07b00] transition font-[var(--font-family)]"
-              >
-                Search
-              </button>
-            </form>
+            {/* Sökfält med datum */}
+            <SearchForm onSearch={handleSearch} />
           </div>
         </div>
 
-        {/* HOTEL LIST */}
-        <HotelList query={searchQuery} />
+        {/* Hotell-lista */}
+        {searchParams && (
+          <HotelList
+            city={searchParams.city}
+            check_in_date={searchParams.check_in_date}
+            check_out_date={searchParams.check_out_date}
+          />
+        )}
       </section>
     </div>
   );
