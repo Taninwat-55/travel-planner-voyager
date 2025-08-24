@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
 import HotelCard from './HotelCard';
 
-export default function HotelList({ query }) {
+export default function HotelList({ city, check_in_date, check_out_date }) {
   const [hotels, setHotels] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const API_KEY = import.meta.env.VITE_HOTEL_API_KEY;
 
-  const fetchHotels = async (searchQuery) => {
+  const fetchHotels = async () => {
     setLoading(true);
     setError(null);
     setHotels([]);
@@ -16,9 +16,9 @@ export default function HotelList({ query }) {
     try {
       const params = new URLSearchParams({
         engine: 'google_hotels',
-        q: searchQuery,
-        check_in_date: '2025-09-15',
-        check_out_date: '2025-09-17',
+        q: city,
+        check_in_date,
+        check_out_date,
         api_key: API_KEY,
       });
 
@@ -28,31 +28,28 @@ export default function HotelList({ query }) {
       if (data.error) throw new Error(data.error);
 
       setHotels(data.properties || []);
-    } catch (error) {
-      setError(error.message);
+    } catch (err) {
+      setError(err.message);
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    if (query) {
-      fetchHotels(query);
-    }
-  }, [query]);
+    if (city && check_in_date && check_out_date) fetchHotels();
+  }, [city, check_in_date, check_out_date]);
+
+  if (loading) return <p className="text-center text-lg">Laddar hotell...</p>;
+  if (error)
+    return <p className="text-center text-lg text-red-600">Fel: {error}</p>;
+  if (hotels.length === 0)
+    return <p className="text-center text-lg">Inga hotell hittades.</p>;
 
   return (
-    <div className='p-4'>
-      {loading && <p className='text-center text-lg'>Laddar hotell...</p>}
-      {error && (
-        <p className='text-center text-lg text-red-600'>Fel: {error}</p>
-      )}
-
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
-        {hotels.map((hotel, index) => (
-          <HotelCard key={hotel.gps_coordinates || index} hotel={hotel} />
-        ))}
-      </div>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+      {hotels.map((hotel, index) => (
+        <HotelCard key={hotel.gps_coordinates || index} hotel={hotel} />
+      ))}
     </div>
   );
 }
