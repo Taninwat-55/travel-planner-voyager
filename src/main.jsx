@@ -5,6 +5,7 @@ import './index.css';
 import App from './App.jsx';
 import HomePage from './pages/HomePage.jsx';
 import HotelDetailsPage from './pages/HotelDetailsPage.jsx';
+import FavoritesPage from './pages/FavoritesPage.jsx';
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
         // Yahea kan lägga till hoteldetaljer komponent här
         // element: ,
       },
+      {
+        path: 'favorites',
+        element: <FavoritesPage/>
+      }
     ],
   },
 ]);
