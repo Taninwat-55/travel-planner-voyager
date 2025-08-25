@@ -5,6 +5,7 @@ import './index.css';
 import App from './App.jsx';
 import HomePage from './pages/HomePage.jsx';
 import HotelDetailsPage from './components/HotelDetailsPage.jsx'; 
+import StaysPage from './pages/StaysPage.jsx';
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
         path: 'hotel/:id',
         element: <HotelDetailsPage />, 
       },
+      {
+        path: 'stays',
+        element: <StaysPage />,
+      }
     ],
   },
 ]);
