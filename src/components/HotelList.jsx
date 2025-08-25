@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import HotelCard from './HotelCard';
 import SortPrice from './SortPrice';
 
-export default function HotelList({ city, check_in_date, check_out_date }) {
+export default function HotelList({ city, check_in_date, check_out_date, onReviewClick }) {
   const [hotels, setHotels] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -72,27 +72,21 @@ export default function HotelList({ city, check_in_date, check_out_date }) {
   });
 
   return (
-  <div className="bg-gray-50 min-h-screen py-6 px-4 md:px-6">
-    <div className="max-w-6xl mx-auto">
-      {/* Sorting */}
-      <div className="mb-6 flex justify-end">
+    <div className='min-h-screen py-6 px-4 md:px-6'>
+      <div className='max-w-6xl mx-auto'>
         <SortPrice value={sortOrder} onChange={setSortOrder} />
-      </div>
 
-      {/* Hotels Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {sortedHotels.map((hotel) => (
-          <div
-            key={hotel.data_id}
-            className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow overflow-hidden"
-          >
-            {/* Hotel Card */}
-            <HotelCard hotel={hotel} />
-          </div>
-        ))}
+        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
+          {sortedHotels.map((hotel) => (
+            <HotelCard
+              key={hotel.data_id}
+              hotel={hotel}
+              onReviewClick={onReviewClick}
+            />
+          ))}
+        </div>
       </div>
     </div>
-  </div>
 );
 
 }
