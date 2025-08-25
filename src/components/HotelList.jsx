@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import HotelCard from './HotelCard';
 import SortPrice from './SortPrice';
 
-export default function HotelList({ city, check_in_date, check_out_date }) {
+export default function HotelList({ city, check_in_date, check_out_date, onReviewClick }) {
   const [hotels, setHotels] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -77,7 +77,7 @@ export default function HotelList({ city, check_in_date, check_out_date }) {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {sortedHotels.map((hotel) => (
-          <HotelCard key={hotel.data_id} hotel={hotel} />
+          <HotelCard key={hotel.data_id} hotel={hotel} onReviewClick={onReviewClick}/>
         ))}
       </div>
     </div>
