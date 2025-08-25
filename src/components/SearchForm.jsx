@@ -36,7 +36,7 @@ export default function SearchForm({ onSearch }) {
 
       <button
         type="submit"
-        className="ml-2 bg-[#FF8C00] text-white px-5 py-2 rounded-full hover:bg-[#e07b00] transition font-[var(--font-family)]"
+        className="ml-2 bg-[#FF8C00] text-white px-7 py-4 rounded-md hover:bg-[#e07b00] transition font-[var(--font-family)]"
       >
         Sök
       </button>

@@ -72,14 +72,27 @@ export default function HotelList({ city, check_in_date, check_out_date }) {
   });
 
   return (
-    <div className="p-4">
-      <SortPrice value={sortOrder} onChange={setSortOrder} />
+  <div className="bg-gray-50 min-h-screen py-6 px-4 md:px-6">
+    <div className="max-w-6xl mx-auto">
+      {/* Sorting */}
+      <div className="mb-6 flex justify-end">
+        <SortPrice value={sortOrder} onChange={setSortOrder} />
+      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {/* Hotels Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {sortedHotels.map((hotel) => (
-          <HotelCard key={hotel.data_id} hotel={hotel} />
+          <div
+            key={hotel.data_id}
+            className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow overflow-hidden"
+          >
+            {/* Hotel Card */}
+            <HotelCard hotel={hotel} />
+          </div>
         ))}
       </div>
     </div>
-  );
+  </div>
+);
+
 }
