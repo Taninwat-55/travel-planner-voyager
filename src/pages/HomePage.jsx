@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import SearchForm from '../components/SearchForm';
 import HotelList from '../components/HotelList';
+import TravelPlanForm from '../components/TravelPlanForm';
 
 export default function HomePage() {
   const [searchParams, setSearchParams] = useState(null);
@@ -28,6 +29,10 @@ export default function HomePage() {
             <SearchForm onSearch={handleSearch} />
           </div>
         </div>
+      </section>
+
+      <section className='md:w-[65%]'>
+        <TravelPlanForm />
       </section>
 
         {/* Hotel List */}
