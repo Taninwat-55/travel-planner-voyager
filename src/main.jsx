@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
 import App from './App.jsx';
 import HomePage from './pages/HomePage.jsx';
-import HotelDetailsPage from './components/HotelDetailsPage.jsx'; // 👈 importera
+import HotelDetailsPage from './components/HotelDetailsPage.jsx'; 
 
 const router = createBrowserRouter([
   {
@@ -17,7 +17,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'hotel/:id',
-        element: <HotelDetailsPage />, // 👈 rendera hoteldetaljer
+        element: <HotelDetailsPage />, 
       },
     ],
   },

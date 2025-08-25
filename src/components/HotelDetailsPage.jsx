@@ -1,5 +1,5 @@
 import { useLocation, Link } from "react-router-dom";
-import AvailabilityBox from './AvailabilityBox.jsx'; // importera nya komponenten
+import AvailabilityBox from './AvailabilityBox.jsx'; 
 
 const IconText = ({ icon, text, isLink = false, href = "#" }) => {
   const content = (
@@ -31,7 +31,7 @@ export default function HotelDetailsPage() {
 
   const { latitude, longitude } = hotel.gps_coordinates || {};
   const googleMapsEmbed = latitude && longitude
-    ? `https://www.google.com/maps?q=${latitude},${longitude}&hl=sv&z=15&output=embed`
+    ? `https://maps.google.com/maps?q=${latitude},${longitude}&hl=sv&z=15&output=embed`
     : null;
 
   return (
