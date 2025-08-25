@@ -88,5 +88,4 @@ export default function HotelList({ city, check_in_date, check_out_date, onRevie
       </div>
     </div>
 );
-
 }

@@ -1,4 +1,3 @@
-// AvailabilityBox.jsx
 import { useState } from 'react';
 
 export default function AvailabilityBox({ hotel }) {
@@ -44,5 +43,5 @@ export default function AvailabilityBox({ hotel }) {
     )}
   </div>
 );
-
 }
+
