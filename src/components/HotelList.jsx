@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import HotelCard from './HotelCard';
 
 export default function HotelList({ city, check_in_date, check_out_date }) {
@@ -8,7 +8,7 @@ export default function HotelList({ city, check_in_date, check_out_date }) {
 
   const API_KEY = import.meta.env.VITE_HOTEL_API_KEY;
 
-  const fetchHotels = async () => {
+  const fetchHotels = useCallback(async () => {
     setLoading(true);
     setError(null);
     setHotels([]);
@@ -33,22 +33,25 @@ export default function HotelList({ city, check_in_date, check_out_date }) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [city, check_in_date, check_out_date, API_KEY]);
 
   useEffect(() => {
-    if (city && check_in_date && check_out_date) fetchHotels();
-  }, [city, check_in_date, check_out_date]);
+    if (city && check_in_date && check_out_date) {
+      fetchHotels();
+    }
+  }, [fetchHotels, city, check_in_date, check_out_date]);
 
-  if (loading) return <p className="text-center text-lg">Laddar hotell...</p>;
+  if (loading) return <p className='text-center text-lg'>Laddar hotell...</p>;
   if (error)
-    return <p className="text-center text-lg text-red-600">Fel: {error}</p>;
+    return <p className='text-center text-lg text-red-600'>Fel: {error}</p>;
+  if (!city) return null;
   if (hotels.length === 0)
-    return <p className="text-center text-lg">Inga hotell hittades.</p>;
+    return <p className='text-center text-lg'>Inga hotell hittades.</p>;
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
-      {hotels.map((hotel, index) => (
-        <HotelCard key={hotel.gps_coordinates || index} hotel={hotel} />
+    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4'>
+      {hotels.map((hotel) => (
+        <HotelCard key={hotel.data_id} hotel={hotel} />
       ))}
     </div>
   );
