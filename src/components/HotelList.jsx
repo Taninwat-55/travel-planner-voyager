@@ -72,14 +72,21 @@ export default function HotelList({ city, check_in_date, check_out_date, onRevie
   });
 
   return (
-    <div className="p-4">
-      <SortPrice value={sortOrder} onChange={setSortOrder} />
+    <div className='min-h-screen py-6 px-4 md:px-6'>
+      <div className='max-w-6xl mx-auto'>
+        <SortPrice value={sortOrder} onChange={setSortOrder} />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {sortedHotels.map((hotel) => (
-          <HotelCard key={hotel.data_id} hotel={hotel} onReviewClick={onReviewClick}/>
-        ))}
+        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
+          {sortedHotels.map((hotel) => (
+            <HotelCard
+              key={hotel.data_id}
+              hotel={hotel}
+              onReviewClick={onReviewClick}
+            />
+          ))}
+        </div>
       </div>
     </div>
-  );
+);
+
 }
