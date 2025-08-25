@@ -22,7 +22,7 @@ export default function SearchForm({ onSearch }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col md:flex-row items-center gap-2 p-4 bg-white shadow-md rounded-xl"
+      className="flex flex-col md:flex-row items-center gap-1 p-2 bg-white shadow-md rounded-md"
     >
       <input
         type="text"
@@ -36,7 +36,7 @@ export default function SearchForm({ onSearch }) {
 
       <button
         type="submit"
-        className="ml-2 bg-[#FF8C00] text-white px-5 py-2 rounded-full hover:bg-[#e07b00] transition font-[var(--font-family)]"
+        className="ml-2 bg-[#FF8C00] text-white px-7 py-4 rounded-md hover:bg-[#e07b00] transition font-[var(--font-family)]"
       >
         Sök
       </button>

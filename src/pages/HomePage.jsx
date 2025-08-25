@@ -1,13 +1,32 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import SearchForm from '../components/SearchForm';
 import HotelList from '../components/HotelList';
-import TravelPlanForm from '../components/TravelPlanForm';
 
 export default function HomePage() {
   const [searchParams, setSearchParams] = useState(null);
+  const [urlSearchParams, setUrlSearchParams] = useSearchParams();
+
+  // Restore search params from URL on component mount
+  useEffect(() => {
+    const city = urlSearchParams.get('city');
+    const checkIn = urlSearchParams.get('checkIn');
+    const checkOut = urlSearchParams.get('checkOut');
+    
+    if (city && checkIn && checkOut) {
+      setSearchParams({ city, checkIn, checkOut });
+    }
+  }, [urlSearchParams]);
 
   const handleSearch = (searchData) => {
-    setSearchParams(searchData)
+    setSearchParams(searchData);
+    
+    // Update URL with search params so they persist across navigation
+    setUrlSearchParams({
+      city: searchData.city,
+      checkIn: searchData.checkIn,
+      checkOut: searchData.checkOut,
+    });
   };
 
   return (
@@ -31,19 +50,13 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className='md:w-[65%]'>
-        <TravelPlanForm />
-      </section>
-
-        {/* Hotel List */}
+      {/* Hotel List */}
       <section className='w-full max-w-6xl mt-10 px-4'>
         {searchParams && (
           <HotelList
             city={searchParams.city}
             check_in_date={searchParams.checkIn}
             check_out_date={searchParams.checkOut}
-            // check_in_date={searchParams.check_in_date}
-            // check_out_date={searchParams.check_out_date}
           />
         )}
       </section>
