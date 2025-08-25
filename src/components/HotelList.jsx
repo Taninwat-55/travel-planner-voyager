@@ -1,10 +1,12 @@
 import { useState, useEffect, useCallback } from 'react';
 import HotelCard from './HotelCard';
+import SortPrice from './SortPrice';
 
 export default function HotelList({ city, check_in_date, check_out_date, onReviewClick }) {
   const [hotels, setHotels] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [sortOrder, setSortOrder] = useState('lowToHigh');
 
   const API_KEY = import.meta.env.VITE_HOTEL_API_KEY;
 
@@ -40,23 +42,44 @@ export default function HotelList({ city, check_in_date, check_out_date, onRevie
       fetchHotels();
     }
   }, [fetchHotels, city, check_in_date, check_out_date]);
+  const extractPrice = (priceString) => {
+    if (!priceString) return 0;
 
-  if (loading) return <p className='text-center text-lg'>Laddar hotell...</p>;
+    const numericString = priceString.toString().replace(/[^\d.,]/g, '');
+
+    const cleanedString = numericString.replace(/\s/g, '').replace(',', '.');
+
+    const price = parseFloat(cleanedString) || 0;
+    return price;
+
+  };
+  if (loading) return <p className="text-center text-lg">Laddar hotell...</p>;
   if (error)
-    return <p className='text-center text-lg text-red-600'>Fel: {error}</p>;
+    return <p className="text-center text-lg text-red-600">Fel: {error}</p>;
   if (!city) return null;
   if (hotels.length === 0)
-    return <p className='text-center text-lg'>Inga hotell hittades.</p>;
+    return <p className="text-center text-lg">Inga hotell hittades.</p>;
+
+  const sortedHotels = [...hotels].sort((a, b) => {
+    const priceA = extractPrice(a.rate_per_night?.lowest);
+    const priceB = extractPrice(b.rate_per_night?.lowest);
+
+    if (priceA === 0 && priceB === 0) return 0;
+    if (priceA === 0) return 1;
+    if (priceB === 0) return -1;
+
+    return sortOrder === 'lowToHigh' ? priceA - priceB : priceB - priceA;
+  });
 
   return (
-    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4'>
-      {hotels.map((hotel) => (
-        <HotelCard
-          key={hotel.data_id}
-          hotel={hotel}
-          onReviewClick={onReviewClick} // Pass down the callback
-        />
-      ))}
+    <div className="p-4">
+      <SortPrice value={sortOrder} onChange={setSortOrder} />
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {sortedHotels.map((hotel) => (
+          <HotelCard key={hotel.data_id} hotel={hotel} onReviewClick={onReviewClick}/>
+        ))}
+      </div>
     </div>
   );
 }
