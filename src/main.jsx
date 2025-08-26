@@ -4,7 +4,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
 import App from './App.jsx';
 import HomePage from './pages/HomePage.jsx';
-import HotelDetailsPage from './pages/HotelDetailsPage.jsx';
+import HotelDetailsPage from './pages/HotelDetailsPage.jsx'; 
+import StaysPage from './pages/StaysPage.jsx';
 import FavoritesPage from './pages/FavoritesPage.jsx';
 
 const router = createBrowserRouter([
@@ -18,13 +19,15 @@ const router = createBrowserRouter([
       },
       {
         path: 'hotel/:id',
-        element: <HotelDetailsPage />,
-        // Yahea kan lägga till hoteldetaljer komponent här
-        // element: ,
+        element: <HotelDetailsPage />, 
       },
       {
-        path: 'favorites',
-        element: <FavoritesPage/>
+        path: 'stays',
+        element: <StaysPage />,
+      },
+      {
+        path: '/favorites',
+        element: <FavoritesPage/>,
       }
     ],
   },
