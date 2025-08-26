@@ -1,12 +1,12 @@
-
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
 import App from './App.jsx';
 import HomePage from './pages/HomePage.jsx';
-import HotelDetailsPage from './components/HotelDetailsPage.jsx'; 
+import HotelDetailsPage from './pages/HotelDetailsPage.jsx'; 
 import StaysPage from './pages/StaysPage.jsx';
+import FavoritesPage from './pages/FavoritesPage.jsx';
 
 const router = createBrowserRouter([
   {
@@ -24,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: 'stays',
         element: <StaysPage />,
+      },
+      {
+        path: '/favorites',
+        element: <FavoritesPage/>,
       }
     ],
   },

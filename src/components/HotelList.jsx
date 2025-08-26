@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import HotelCard from './HotelCard';
-import SortOptions from './SortOptions'; // Importerar nya sorteringskomponenten
+import SortOptions from './SortOptions'; 
 
 export default function HotelList({ city, check_in_date, check_out_date, onReviewClick }) {
   const [hotels, setHotels] = useState([]);

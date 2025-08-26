@@ -24,6 +24,11 @@ function Navbar() {
         </Link>
       </h1>
 
+      {/* Right Menu */}
+      <ul>
+        <li><Link to='/favorites'>Favorites</Link></li>
+      </ul>
+
       {/* Centered Half-Line */}
       <div className='absolute bottom-0 left-1/2 transform -translate-x-1/2 w-4/5 border-b border-black'></div>
     </nav>
