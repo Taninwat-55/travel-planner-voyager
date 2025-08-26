@@ -58,7 +58,7 @@ export default function SearchForm({ onSearch }) {
           onClick={() => setOpenGuests(!openGuests)}
           className="px-4 h-12 border border-slate-300 rounded flex items-center gap-2 bg-white"
         >
-          Who 👤 
+          Who👤 
         </button>
 
         {openGuests && (
