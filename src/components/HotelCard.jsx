@@ -21,6 +21,14 @@ export default function HotelCard({ hotel, onReviewClick }) {
       )}
       <div className="p-4">
         <h3 className="text-xl font-bold">{hotel.name}</h3>
+
+        {/* Lägg till rating under namnet */}
+        {hotel.overall_rating && (
+          <p className="text-yellow-500 font-semibold mt-1">
+            ★ {hotel.overall_rating} ({hotel.reviews || 0} recensioner)
+          </p>
+        )}
+
         <p className="text-gray-600">15–17 September 2025</p>
         {hotel.rate_per_night && (
           <p className="font-semibold mt-2">
