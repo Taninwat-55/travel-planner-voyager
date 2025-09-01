@@ -7,6 +7,7 @@ import HomePage from './pages/HomePage.jsx';
 import HotelDetailsPage from './pages/HotelDetailsPage.jsx'; 
 import StaysPage from './pages/StaysPage.jsx';
 import FavoritesPage from './pages/FavoritesPage.jsx';
+import Explore from './pages/Explore.jsx';
 
 const router = createBrowserRouter([
   {
@@ -28,7 +29,11 @@ const router = createBrowserRouter([
       {
         path: '/favorites',
         element: <FavoritesPage/>,
-      }
+      },
+      {
+        path: 'explore', 
+        element: <Explore />,
+      },
     ],
   },
 ]);
