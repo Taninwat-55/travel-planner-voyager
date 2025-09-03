@@ -4,10 +4,11 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
 import App from './App.jsx';
 import HomePage from './pages/HomePage.jsx';
-import HotelDetailsPage from './pages/HotelDetailsPage.jsx'; 
+import HotelDetailsPage from './pages/HotelDetailsPage.jsx';
 import StaysPage from './pages/StaysPage.jsx';
 import FavoritesPage from './pages/FavoritesPage.jsx';
 import Explore from './pages/Explore.jsx';
+import TravelPlanPage from './pages/TravelPlanPage.jsx';
 
 const router = createBrowserRouter([
   {
@@ -20,7 +21,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'hotel/:id',
-        element: <HotelDetailsPage />, 
+        element: <HotelDetailsPage />,
       },
       {
         path: 'stays',
@@ -28,11 +29,15 @@ const router = createBrowserRouter([
       },
       {
         path: '/favorites',
-        element: <FavoritesPage/>,
+        element: <FavoritesPage />,
       },
       {
-        path: 'explore', 
+        path: 'explore',
         element: <Explore />,
+      },
+      {
+        path: 'travel-plan',
+        element: <TravelPlanPage />,
       },
     ],
   },
