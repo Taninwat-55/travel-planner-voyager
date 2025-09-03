@@ -36,13 +36,13 @@ export default function AvailabilityBox({ hotel }) {
     <div className="bg-white rounded-xl shadow-md p-5 sticky top-4 w-full max-w-sm h-auto">
       {hotel.rate_per_night && (
         <div className="flex justify-between items-center mb-3">
-          <p className="text-base">Pris per natt från</p>
+          <p className="text-base font-bold">Pris per natt från</p>
           <p className="text-2xl font-extrabold text-slate-800">
             {hotel.rate_per_night.lowest}
           </p>
         </div>
       )}
-      <p className="text-xs text-slate-500 mb-3">
+      <p className="text-xs text-slate-500 mb-3 font-bold">
         Priser kan variera beroende på datum.
       </p>
 
@@ -58,10 +58,10 @@ export default function AvailabilityBox({ hotel }) {
           {hotel.availability?.length > 0 ? (
             hotel.availability.map((room, idx) => (
               <div key={idx} className="p-3 bg-slate-100 rounded-md">
-                <p className="font-semibold">{room.type}</p>
-                <p className="text-sm">Betyg: {room.rating} ★</p>
-                <p className="text-sm">Pris: {room.price} per natt</p>
-                <p className="text-xs text-slate-600 mt-1">{room.description}</p>
+                <p className="font-extrabold">{room.type}</p>
+                <p className="text-sm font-bold">Betyg: {room.rating} ★</p>
+                <p className="text-sm font-bold">Pris: {room.price} per natt</p>
+                <p className="text-xs text-slate-600 mt-1 font-bold">{room.description}</p>
                 <button
                   onClick={() => handleBooking(room)}
                   className="w-full mt-3 bg-green-600 text-white font-bold text-sm py-2 rounded-md hover:bg-green-700 transition"
@@ -71,7 +71,7 @@ export default function AvailabilityBox({ hotel }) {
               </div>
             ))
           ) : (
-            <p>Ingen tillgänglighetsdata hittades</p>
+            <p className="font-bold">Ingen tillgänglighetsdata hittades</p>
           )}
         </div>
       )}

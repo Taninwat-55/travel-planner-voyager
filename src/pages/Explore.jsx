@@ -288,11 +288,11 @@ const Explore = () => {
       <div className="min-h-screen bg-white">
         <div className="flex justify-between items-center px-8 py-6 border-b border-gray-200">
           <div className="flex items-center gap-4">
-            <button onClick={() => setSelectedDestination(null)} className="flex items-center gap-2 text-gray-600 hover:text-gray-800">
+            <button onClick={() => setSelectedDestination(null)} className="flex items-center gap-2 text-gray-600 hover:text-gray-800 font-bold">
               <ArrowLeft size={20} />
               <span>Tillbaka</span>
             </button>
-            <h1 className="text-2xl font-light">{selectedDestination.name}</h1>
+            <h1 className="text-2xl font-bold">{selectedDestination.name}</h1>
           </div>
         </div>
         <div className="grid grid-cols-2 gap-6 p-8">
@@ -306,7 +306,7 @@ const Explore = () => {
           ))}
         </div>
         <div className="px-8 pb-8">
-          <h2 className="text-xl font-semibold mb-3">Om {selectedDestination.name}</h2>
+          <h2 className="text-xl font-bold mb-3">Om {selectedDestination.name}</h2>
           <div className="text-gray-600 text-lg prose" dangerouslySetInnerHTML={{ __html: selectedDestination.info }} />
         </div>
       </div>
@@ -382,8 +382,8 @@ const Explore = () => {
       `}</style>
 
       <div className="flex justify-between items-center px-8 py-6 border-b border-gray-200">
-        <h1 className="text-2xl font-light">Utvalda Destinationer</h1>
-        <button onClick={() => setIsFilterOpen(true)} className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50">
+        <h1 className="text-2xl font-bold">Utvalda Destinationer</h1>
+        <button onClick={() => setIsFilterOpen(true)} className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50 font-bold">
           <Filter size={18} />
           Filter
         </button>
@@ -393,13 +393,13 @@ const Explore = () => {
         <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 bg-black/40">
           <div className="w-[92%] max-w-[900px] rounded-2xl bg-gray-200 shadow-2xl p-8">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-medium">Filters</h2>
-              <button onClick={() => setIsFilterOpen(false)} className="px-3 py-1 rounded-full bg-white shadow">Close</button>
+              <h2 className="text-2xl font-bold">Filters</h2>
+              <button onClick={() => setIsFilterOpen(false)} className="px-3 py-1 rounded-full bg-white shadow font-bold">Close</button>
             </div>
 
             {/* Price range */}
             <div className="mb-6">
-              <p className="text-lg font-semibold mb-3">Prisklass</p>
+              <p className="text-lg font-bold mb-3">Prisklass</p>
 
               <div className="price-range-container mb-4">
                 <div className="track" />
@@ -443,7 +443,7 @@ const Explore = () => {
 
               <div className="flex gap-4 items-center">
                 <div className="flex-1">
-                  <div className="w-full flex justify-between text-sm text-gray-700">
+                  <div className="w-full flex justify-between text-sm text-gray-700 font-bold">
                     <span>${priceRange[0]}</span>
                     <span>${priceRange[1]}</span>
                   </div>
@@ -453,13 +453,13 @@ const Explore = () => {
 
             {/* Rating */}
             <div className="mb-6">
-              <p className="text-lg font-semibold mb-3">Rating</p>
+              <p className="text-lg font-bold mb-3">Rating</p>
               <div className="flex gap-3 flex-wrap">
                 {["Any", 1, 2, 3, 4, 5].map((r) => (
                   <button
                     key={r}
                     onClick={() => setSelectedRating(r)}
-                    className={`px-4 py-2 rounded-lg border transition ${selectedRating === r ? "bg-orange-500 text-white" : "bg-white text-gray-700"}`}
+                    className={`px-4 py-2 rounded-lg border transition font-bold ${selectedRating === r ? "bg-orange-500 text-white" : "bg-white text-gray-700"}`}
                   >
                     {r === "Any" ? "Any" : `${r} Star${r > 1 ? "s" : ""}`}
                   </button>
@@ -469,13 +469,13 @@ const Explore = () => {
 
             {/* Amenities */}
             <div className="mb-6">
-              <p className="text-lg font-semibold mb-3">Amenities</p>
+              <p className="text-lg font-bold mb-3">Amenities</p>
               <div className="flex gap-3 flex-wrap">
                 {["Wi-Fi", "Kitchen", "Swimming Pool", "Parking"].map((a) => (
                   <button
                     key={a}
                     onClick={() => toggleAmenity(a)}
-                    className={`px-4 py-2 rounded-lg border transition ${selectedAmenities.includes(a) ? "bg-orange-500 text-white" : "bg-white text-gray-700"}`}
+                    className={`px-4 py-2 rounded-lg border transition font-bold ${selectedAmenities.includes(a) ? "bg-orange-500 text-white" : "bg-white text-gray-700"}`}
                   >
                     {a}
                   </button>
@@ -484,10 +484,10 @@ const Explore = () => {
             </div>
 
             <div className="flex items-center justify-between mt-6">
-              <button onClick={clearFilters} className="px-4 py-2 rounded-lg bg-white border hover:bg-gray-50">Clear All</button>
+              <button onClick={clearFilters} className="px-4 py-2 rounded-lg bg-white border hover:bg-gray-50 font-bold">Clear All</button>
               <div className="flex gap-3">
-                <div className="px-4 py-2 rounded-lg bg-white border text-gray-700 flex items-center gap-2">Showing <span className="font-semibold">{filteredDestinations.length}</span></div>
-                <button onClick={() => setIsFilterOpen(false)} className="px-5 py-2 rounded-lg bg-orange-500 text-white hover:bg-orange-600">Apply</button>
+                <div className="px-4 py-2 rounded-lg bg-white border text-gray-700 flex items-center gap-2 font-bold">Showing <span className="font-bold">{filteredDestinations.length}</span></div>
+                <button onClick={() => setIsFilterOpen(false)} className="px-5 py-2 rounded-lg bg-orange-500 text-white hover:bg-orange-600 font-bold">Apply</button>
               </div>
             </div>
           </div>
@@ -513,9 +513,9 @@ const Explore = () => {
                 />
               </div>
               <div className="mt-3 flex items-center justify-between">
-                <h3 className="text-lg font-medium">{destination.name}</h3>
+                <h3 className="text-lg font-bold">{destination.name}</h3>
                 <button onClick={() => setSelectedDestination(destination)} className="flex items-center gap-2 text-gray-600 hover:text-gray-800 group">
-                  <span className="text-sm">Utforska</span>
+                  <span className="text-sm font-bold">Utforska</span>
                   <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                 </button>
               </div>
@@ -543,9 +543,9 @@ const Explore = () => {
                 />
               </div>
               <div className="mt-3 flex items-center justify-between">
-                <h3 className="text-lg font-medium">{destination.name}</h3>
+                <h3 className="text-lg font-bold">{destination.name}</h3>
                 <button onClick={() => setSelectedDestination(destination)} className="flex items-center gap-2 text-gray-600 hover:text-gray-800 group">
-                  <span className="text-sm">Explore</span>
+                  <span className="text-sm font-bold">Utforska</span>
                   <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                 </button>
               </div>
