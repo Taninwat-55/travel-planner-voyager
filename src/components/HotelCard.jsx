@@ -13,8 +13,8 @@ export default function HotelCard({ hotel, onReviewClick }) {
 
   const handleFavoriteClick = (e) => {
     // This stops the click from navigating to the details page
-    e.preventDefault(); 
-    
+    e.preventDefault();
+
     if (isFav) {
       removeFavorite(hotelId);
       setIsFav(false);
@@ -32,76 +32,84 @@ export default function HotelCard({ hotel, onReviewClick }) {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden h-full hover:scale-105 transition-transform duration-200">
-      <Link to={`/hotel/${hotelId}`}
-      state={{hotel: hotel}}
-      className='block'>
-        <div className="relative">
+    <div className='bg-white rounded-lg shadow-md overflow-hidden h-full hover:scale-105 transition-transform duration-200'>
+      <Link to={`/hotel/${hotelId}`} state={{ hotel: hotel }} className='block'>
+        <div className='relative'>
           <img
-          src={hotel.images[0].thumbnail}
-          alt={hotel.name}
-          className="w-full h-48 object-cover"
-        />
+            src={hotel.images[0].thumbnail}
+            alt={hotel.name}
+            className='w-full h-48 object-cover'
+          />
 
-        {/* Favorite Knapp */}
-        <button onClick={handleFavoriteClick}
-        className="absolute top-2 right-2 bg-white/80 p-2 rounded-full shadow-lg transition-colors duration-200 hover:bg-red-100"
-            aria-label={isFav ? 'Ta bort från favoriter' : 'Lägg till som favorit'}>
-              <svg
-              className="h-6 w-6"
+          {/* Favorite Knapp */}
+          <button
+            onClick={handleFavoriteClick}
+            className='absolute top-2 right-2 bg-white/80 p-2 rounded-full shadow-lg transition-colors duration-200 hover:bg-red-100'
+            aria-label={
+              isFav ? 'Ta bort från favoriter' : 'Lägg till som favorit'
+            }
+          >
+            <svg
+              className='h-6 w-6'
               fill={isFav ? 'currentColor' : 'none'}
-              viewBox="0 0 24 24"
-              stroke="currentColor"
+              viewBox='0 0 24 24'
+              stroke='currentColor'
               strokeWidth={2}
               // Changes color based on favorite status
               color={isFav ? '#EF4444' : '#6B7280'}
             >
               <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M4.318 6.318a4.5 4.5 0 016.364 0L12 7.636l1.318-1.318a4.5 4.5 0 116.364 6.364L12 20.364l-7.682-7.682a4.5 4.5 0 010-6.364z"
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                d='M4.318 6.318a4.5 4.5 0 016.364 0L12 7.636l1.318-1.318a4.5 4.5 0 116.364 6.364L12 20.364l-7.682-7.682a4.5 4.5 0 010-6.364z'
               />
             </svg>
-        </button>
+          </button>
         </div>
 
-        <div className="p-4">
-        <h3 className="text-xl font-bold">{hotel.name}</h3>
+        <div className='p-4'>
+          <h3 className='text-xl font-bold'>{hotel.name}</h3>
 
-        {/* Lägg till rating under namnet */}
-        {hotel.overall_rating && (
-          <p className="text-yellow-500 font-semibold mt-1">
-            ★ {hotel.overall_rating} ({hotel.reviews || 0} recensioner)
+          {/* Lägg till rating under namnet */}
+          {hotel.overall_rating && (
+            <p className='text-yellow-500 font-semibold mt-1'>
+              ★ {hotel.overall_rating} ({hotel.reviews || 0} recensioner)
+            </p>
+          )}
+
+          {/* <p className="text-gray-600">15–17 September 2025</p> */}
+          {hotel.rate_per_night && (
+            <p className='font-semibold mt-2'>
+              {hotel.rate_per_night.lowest} per natt
+            </p>
+          )}
+
+          {/* Review Button */}
+          {onReviewClick && (
+            <button
+              className='mt-3 px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600 transition-colors'
+              onClick={(e) => {
+                e.preventDefault();
+                onReviewClick(hotelWithDetails);
+              }}
+              s
+            >
+              Review
+            </button>
+          )}
+
+          {/* Link to hotel page */}
+          <p className='block mt-2 text-blue-500 hover:underline'>
+            View Details
           </p>
-        )}
-
-        {/* <p className="text-gray-600">15–17 September 2025</p> */}
-        {hotel.rate_per_night && (
-          <p className="font-semibold mt-2">
-            {hotel.rate_per_night.lowest} per natt
-          </p>
-        )}
-
-        {/* Review Button */}
-        {onReviewClick && (
-          <button
-            className="mt-3 px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600 transition-colors"
-            onClick={() => onReviewClick(hotelWithDetails)}
+          {/* <Link
+            to={`/hotel/${hotelId}`}
+            state={{ hotel: hotelWithDetails }}
+            className='block mt-2 text-blue-500 hover:underline'
           >
-            Review
-          </button>
-        )}
-
-        {/* Link to hotel page */}
-        <Link
-          to={`/hotel/${hotelId}`}
-          state={{ hotel: hotelWithDetails }}
-          className="block mt-2 text-blue-500 hover:underline"
-        >
-          View Details
-        </Link>
-      </div>
-      
+            View Details
+          </Link> */}
+        </div>
       </Link>
       {/* {hotel.images?.[0] && (
         <img
@@ -110,7 +118,6 @@ export default function HotelCard({ hotel, onReviewClick }) {
           className="w-full h-48 object-cover"
         />
       )} */}
-      
     </div>
   );
 }
