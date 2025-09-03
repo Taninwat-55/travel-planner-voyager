@@ -1,8 +1,13 @@
 import { useState, useEffect, useCallback } from 'react';
 import HotelCard from './HotelCard';
-import SortOptions from './SortOptions'; 
+import SortOptions from './SortOptions';
 
-export default function HotelList({ city, check_in_date, check_out_date, onReviewClick }) {
+export default function HotelList({
+  city,
+  check_in_date,
+  check_out_date,
+  onReviewClick,
+}) {
   const [hotels, setHotels] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -25,13 +30,30 @@ export default function HotelList({ city, check_in_date, check_out_date, onRevie
       });
 
       const response = await fetch(`/api/search?${params}`);
+
+      if (!response.ok) {
+        if (response.status === 401) {
+          throw new Error('API-key is not valid or missing');
+        } else {
+          throw new Error(
+            `Server Error: ${response.status} ${response.statusText}`
+          );
+        }
+      }
+
       const data = await response.json();
 
       if (data.error) throw new Error(data.error);
 
       setHotels(data.properties || []);
     } catch (err) {
-      setError(err.message);
+      if (err.name === 'TypeError') {
+        setError(
+          'Network Error: Could not connect to the server. Check your internet connection.'
+        );
+      } else {
+        setError(err.message);
+      }
     } finally {
       setLoading(false);
     }
@@ -50,10 +72,27 @@ export default function HotelList({ city, check_in_date, check_out_date, onRevie
     return parseFloat(cleanedString) || 0;
   };
 
-  if (loading) return <p className="text-center text-lg">Laddar hotell...</p>;
-  if (error) return <p className="text-center text-lg text-red-600">Fel: {error}</p>;
+  if (error) {
+    return (
+      <div className='text-center p-8 bg-red-50 border border-red-200 rounded-lg'>
+        <p className='text-lg text-red-700 font-semibold'>Något gick fel</p>
+        <p className='text-red-600 mt-2'>{error}</p>
+        <button
+          onClick={fetchHotels}
+          className='mt-4 px-4 py-2 bg-red-600 text-white font-bold rounded-md hover:bg-red-700 transition'
+        >
+          Försök igen
+        </button>
+      </div>
+    );
+  }
+
+  if (loading) return <p className='text-center text-lg'>Laddar hotell...</p>;
+  if (error)
+    return <p className='text-center text-lg text-red-600'>Fel: {error}</p>;
   if (!city) return null;
-  if (hotels.length === 0) return <p className="text-center text-lg">Inga hotell hittades.</p>;
+  if (hotels.length === 0)
+    return <p className='text-center text-lg'>Inga hotell hittades.</p>;
 
   const sortedHotels = [...hotels].sort((a, b) => {
     if (sortOrder === 'lowToHigh' || sortOrder === 'highToLow') {
