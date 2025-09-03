@@ -19,3 +19,13 @@
     font-family: var(--font-family-base) !important;
   }
 }
+
+/* Base styles for all text */
+* {
+    font-weight: 600; /* This sets all text to semi-bold */
+}
+
+/* Overriding the font weight for headers to be bold */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700; /* This sets all headers to bold */
+}
