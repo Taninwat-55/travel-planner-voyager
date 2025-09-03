@@ -122,9 +122,9 @@ export default function HotelList({
         <SortOptions value={sortOrder} onChange={setSortOrder} />
 
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
-          {sortedHotels.map((hotel) => (
+          {sortedHotels.map((hotel, index) => (
             <HotelCard
-              key={hotel.data_id}
+              key={hotel.data_id || `hotel-${index}`}
               hotel={hotel}
               onReviewClick={onReviewClick}
             />
