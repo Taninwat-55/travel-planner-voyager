@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -8,9 +7,9 @@ export default function DateRangePicker({ value, onChange }) {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <div className="flex flex-col sm:flex-row gap-4 sm:gap-2">
+      <div className='flex flex-col sm:flex-row gap-4 sm:gap-2'>
         <DatePicker
-          label="Check-in"
+          label='Check-in'
           value={checkIn}
           onChange={(newValue) =>
             onChange({
@@ -21,15 +20,15 @@ export default function DateRangePicker({ value, onChange }) {
                   : checkOut,
             })
           }
-          className="w-full sm:w-auto"
+          className='w-full sm:w-auto'
         />
 
         <DatePicker
-          label="Check-out"
+          label='Check-out'
           value={checkOut}
           minDate={checkIn ? checkIn.add(1, 'day') : undefined}
           onChange={(newValue) => onChange({ checkIn, checkOut: newValue })}
-          className="w-full sm:w-auto"
+          className='w-full sm:w-auto'
         />
       </div>
     </LocalizationProvider>
