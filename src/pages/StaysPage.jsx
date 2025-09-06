@@ -43,7 +43,7 @@ export default function Stays() {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-
+      
       const data = await response.json();
 
       if (data.error) {
@@ -64,8 +64,8 @@ export default function Stays() {
       {/* Search Bar */}
       <div className='flex flex-col md:flex-row gap-4 mb-6 items-center'>
         <input
-          type='text'
-          placeholder='Search for a city...'
+          type="text"
+          placeholder="Sök"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           className='w-full md:w-1/2 border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-orange-400'
@@ -142,17 +142,17 @@ export default function Stays() {
 
         {activeTab === 'reviews' && (
           <div>
-            <h2 className='text-xl font-semibold'>Reviews</h2>
-            <p className='text-gray-600 mt-2'>No reviews available yet.</p>
+            <h2 className="text-xl font-semibold">recensioner</h2>
+            <p className="text-gray-600 mt-2">Inga tillgängliga recensioner.</p>
           </div>
         )}
 
         {activeTab === 'about' && (
           <div>
-            <h2 className='text-xl font-semibold'>About</h2>
-            <p className='text-gray-600 mt-2'>
-              Voyager helps you discover the best stays, flights, and car
-              rentals with ease.
+            <h2 className="text-xl font-semibold">Om</h2>
+            <p className="text-gray-600 mt-2">
+              Voyager hjälper dig att hitta de bästa hotellen, flygen och
+              biluthyrningarna – enkelt och smidigt.
             </p>
           </div>
         )}

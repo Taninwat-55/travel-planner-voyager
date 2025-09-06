@@ -21,11 +21,17 @@ export default function TravelPlanForm() {
   function handleSubmit(e) {
     e.preventDefault();
     if (!destination || !checkIn || !checkOut) {
-      setStatus({ type: 'error', text: 'Please fill destination and both dates.' });
+      setStatus({
+        type: 'error',
+        text: 'Fyll i destination och båda datumen.',
+      });
       return;
     }
     if (checkOut <= checkIn) {
-      setStatus({ type: 'error', text: 'Check-out must be after check-in.' });
+      setStatus({
+        type: 'error',
+        text: 'Check-out måste vara efter check-in.',
+      });
       return;
     }
 
@@ -38,31 +44,36 @@ export default function TravelPlanForm() {
     };
 
     addTravelEntry(entry);
-    setStatus({ type: 'success', text: 'Added to your travel plan.' });
+    setStatus({ type: 'success', text: 'Tillagd till din travel plan.' });
     reset();
   }
 
   return (
     <section className="w-full mt-8">
       <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-        <h3 className="text-2xl font-semibold mb-4">Create Travel Plan Entry</h3>
+        <h3 className="text-2xl font-semibold mb-4">Skapa resplan</h3>
 
-        <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <form
+          onSubmit={handleSubmit}
+          className="grid grid-cols-1 md:grid-cols-2 gap-4"
+        >
           {/* Destination */}
           <div className="flex flex-col gap-1">
-            <label className="text-sm font-medium text-slate-700">Destination</label>
+            <label className="text-sm font-medium text-slate-700">
+              Destination
+            </label>
             <input
               type="text"
               value={destination}
               onChange={(e) => setDestination(e.target.value)}
-              placeholder="City or place (e.g., Paris)"
+              placeholder="Stad eller plats (t.ex. Paris)"
               className="rounded-md border border-slate-300 p-2 focus:outline-none focus:ring-2 focus:ring-sky-400"
             />
           </div>
 
           {/* Guests */}
           <div className="flex flex-col gap-1">
-            <label className="text-sm font-medium text-slate-700">Guests</label>
+            <label className="text-sm font-medium text-slate-700">Gäster</label>
             <input
               type="number"
               min="1"
@@ -88,11 +99,13 @@ export default function TravelPlanForm() {
 
           {/* Notes (span full width) */}
           <div className="md:col-span-2 flex flex-col gap-1">
-            <label className="text-sm font-medium text-slate-700">Notes (optional)</label>
+            <label className="text-sm font-medium text-slate-700">
+              Anteckningar (valfritt)
+            </label>
             <textarea
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              placeholder="Anything else to remember…"
+              placeholder="Något annat att komma ihåg…"
               rows={3}
               className="rounded-md border border-slate-300 p-2 focus:outline-none focus:ring-2 focus:ring-sky-400"
             />
@@ -104,7 +117,7 @@ export default function TravelPlanForm() {
               type="submit"
               className="inline-flex items-center justify-center rounded-md bg-sky-600 px-5 py-2.5 text-white font-semibold hover:bg-sky-700 transition"
             >
-              Add to Travel Plan
+              Lägg till i reseplan
             </button>
           </div>
         </form>
