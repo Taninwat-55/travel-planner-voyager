@@ -313,18 +313,18 @@ const Explore = () => {
               className="flex items-center gap-2 text-gray-600 hover:text-gray-800 font-bold"
             >
               <ArrowLeft size={20} />
-              <span>Tillbaka</span>
+              <span className='cursor-pointer'>Tillbaka</span>
             </button>
-            <h1 className="text-2xl font-bold">{selectedDestination.name}</h1>
+            <h1 className='text-2xl font-bold'>{selectedDestination.name}</h1>
           </div>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 p-4 md:p-8">
+        <div className='grid grid-cols-1 sm:grid-cols-2 gap-6 p-4 md:p-8'>
           {selectedDestination.extraImages.map((img, index) => (
             <img
               key={index}
               src={img}
               alt={`${selectedDestination.name} view ${index + 1}`}
-              className="w-full h-56 object-cover rounded-lg shadow-md"
+              className='w-full h-56 object-cover rounded-lg shadow-md'
             />
           ))}
         </div>
@@ -342,7 +342,7 @@ const Explore = () => {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className='min-h-screen bg-white'>
       <style>{`
         .scrollbar-hide::-webkit-scrollbar { display: none; }
         .snap-x { scroll-snap-type: x mandatory; }
@@ -434,23 +434,23 @@ const Explore = () => {
             </div>
 
             {/* Price range */}
-            <div className="mb-6">
-              <p className="text-lg font-bold mb-3">Prisklass</p>
+            <div className='mb-6'>
+              <p className='text-lg font-bold mb-3'>Prisklass</p>
 
-              <div className="price-range-container mb-4">
-                <div className="track" />
+              <div className='price-range-container mb-4'>
+                <div className='track' />
                 <div
-                  className="filled"
+                  className='filled'
                   style={{
                     left: `${leftPercent}%`,
                     width: `${Math.max(0, rightPercent - leftPercent)}%`,
                   }}
                 />
                 <input
-                  type="range"
+                  type='range'
                   min={min}
                   max={max}
-                  step="10"
+                  step='10'
                   value={priceRange[0]}
                   onChange={(e) => {
                     const newMin = Number(e.target.value);
@@ -467,10 +467,10 @@ const Explore = () => {
                   }}
                 />
                 <input
-                  type="range"
+                  type='range'
                   min={min}
                   max={max}
-                  step="10"
+                  step='10'
                   value={priceRange[1]}
                   onChange={(e) => {
                     const newMax = Number(e.target.value);
@@ -488,9 +488,9 @@ const Explore = () => {
                 />
               </div>
 
-              <div className="flex gap-4 items-center">
-                <div className="flex-1">
-                  <div className="w-full flex justify-between text-sm text-gray-700 font-bold">
+              <div className='flex gap-4 items-center'>
+                <div className='flex-1'>
+                  <div className='w-full flex justify-between text-sm text-gray-700 font-bold'>
                     <span>${priceRange[0]}</span>
                     <span>${priceRange[1]}</span>
                   </div>
@@ -506,7 +506,7 @@ const Explore = () => {
                   <button
                     key={r}
                     onClick={() => setSelectedRating(r)}
-                    className={`px-4 py-2 rounded-lg border transition font-bold ${
+                    className={`cursor-pointer px-4 py-2 rounded-lg border transition font-bold ${
                       selectedRating === r
                         ? 'bg-orange-500 text-white'
                         : 'bg-white text-gray-700'
@@ -526,7 +526,7 @@ const Explore = () => {
                   <button
                     key={a}
                     onClick={() => toggleAmenity(a)}
-                    className={`px-4 py-2 rounded-lg border transition font-bold ${
+                    className={`cursor-pointer px-4 py-2 rounded-lg border transition font-bold ${
                       selectedAmenities.includes(a)
                         ? 'bg-orange-500 text-white'
                         : 'bg-white text-gray-700'
@@ -547,7 +547,7 @@ const Explore = () => {
               </button>
               <div className="flex gap-3 w-full sm:w-auto justify-end">
                 <div className="px-4 py-2 rounded-lg bg-white border text-gray-700 flex items-center gap-2 font-bold flex-1">
-                  Visar{' '}
+                  Visar:{' '}
                   <span className="font-bold">
                     {filteredDestinations.length}
                   </span>
@@ -583,12 +583,12 @@ const Explore = () => {
           className="flex gap-8 overflow-x-auto scrollbar-hide pb-4 snap-x snap-mandatory"
         >
           {filteredDestinations.slice(0, 6).map((destination) => (
-            <div key={destination.id} className="w-80 flex-shrink-0">
-              <div className="relative rounded-2xl overflow-hidden shadow-lg">
+            <div key={destination.id} className='w-80 flex-shrink-0'>
+              <div className='relative rounded-2xl overflow-hidden shadow-lg'>
                 <img
                   src={destination.image}
                   alt={destination.name}
-                  className="w-full aspect-video object-cover"
+                  className='w-full aspect-video object-cover'
                 />
               </div>
               <div className="mt-3 flex items-center justify-between">
@@ -628,24 +628,26 @@ const Explore = () => {
           className="flex gap-8 overflow-x-auto scrollbar-hide pb-4 snap-x snap-mandatory"
         >
           {filteredDestinations.slice(6, 12).map((destination) => (
-            <div key={destination.id} className="w-80 flex-shrink-0">
-              <div className="relative rounded-2xl overflow-hidden shadow-lg">
+            <div key={destination.id} className='w-80 flex-shrink-0'>
+              <div className='relative rounded-2xl overflow-hidden shadow-lg'>
                 <img
                   src={destination.image}
                   alt={destination.name}
-                  className="w-full aspect-video object-cover"
+                  className='w-full aspect-video object-cover'
                 />
               </div>
-              <div className="mt-3 flex items-center justify-between">
-                <h3 className="text-lg font-bold">{destination.name}</h3>
+              <div className='mt-3 flex items-center justify-between'>
+                <h3 className='text-lg font-bold'>{destination.name}</h3>
                 <button
                   onClick={() => setSelectedDestination(destination)}
-                  className="flex items-center gap-2 text-gray-600 hover:text-gray-800 group"
+                  className='flex items-center gap-2 text-gray-600 hover:text-gray-800 group'
                 >
-                  <span className="text-sm font-bold">Utforska</span>
+                  <span className='cursor-pointer text-sm font-bold'>
+                    Utforska
+                  </span>
                   <ArrowRight
                     size={16}
-                    className="group-hover:translate-x-1 transition-transform"
+                    className='group-hover:translate-x-1 transition-transform'
                   />
                 </button>
               </div>

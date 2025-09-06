@@ -2,6 +2,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 // Komponenter och sidor
 import App from './App.jsx';
@@ -20,6 +21,12 @@ import BookingConfirmationPage from './pages/BookingConfirmationPage.jsx';
 
 // Context Provider
 import { AuthProvider } from './context/AuthContext';
+
+const theme = createTheme({
+  typography: {
+    fontFamily: ['Josefin Slab', 'serif'].join(','),
+  },
+});
 
 const router = createBrowserRouter([
   {
@@ -77,7 +84,9 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <AuthProvider>
-      <RouterProvider router={router} />
+      <ThemeProvider theme={theme}>
+        <RouterProvider router={router} />
+      </ThemeProvider>
     </AuthProvider>
   </StrictMode>
 );

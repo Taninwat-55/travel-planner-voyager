@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Slab:ital,wght@0,100..700;1,100..700&display=swap');
-@import 'tailwindcss';
 
+@import 'tailwindcss';
 
 /* Set up Tailwind v4 theme variables */
 @theme {
@@ -11,21 +11,27 @@
   --text-black: #000000;
   --text-white: #ffffff;
   --text-gray: #808080;
-  --btn-color: #FF8C00;
+  --btn-color: #ff8c00;
 }
 
 @layer base {
-  html, body {
+  html,
+  body {
     font-family: var(--font-family-base) !important;
   }
 }
 
 /* Base styles for all text */
 * {
-    font-weight: 600; /* This sets all text to semi-bold */
+  font-weight: 500; /* This sets all text to semi-bold */
 }
 
 /* Overriding the font weight for headers to be bold */
-h1, h2, h3, h4, h5, h6 {
-    font-weight: 700; /* This sets all headers to bold */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700; /* This sets all headers to bold */
 }

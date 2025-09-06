@@ -1,51 +1,80 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
+import DateRangePicker from '../components/DateRangePicker';
+import dayjs from 'dayjs';
 
 const API_KEY = import.meta.env.VITE_HOTEL_API_KEY;
 
 export default function Stays() {
-  const [activeTab, setActiveTab] = useState("overview");
-  const [search, setSearch] = useState("");
+  const [activeTab, setActiveTab] = useState('overview');
+  const [search, setSearch] = useState('');
   const [hotels, setHotels] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const [dates, setDates] = useState({
+    checkIn: dayjs().add(7, 'day'),
+    checkOut: dayjs().add(8, 'day'),
+  });
 
   useEffect(() => {
-    if (search.length > 2) {
-      fetchHotels(search);
+    if (search.length > 2 && dates.checkIn && dates.checkOut) {
+      fetchHotels(search, dates);
+    } else {
+      setHotels([]);
     }
-  }, [search]);
+  }, [search, dates]);
 
- const fetchHotels = async (city) => {
-  try {
-    const response = await fetch(
-      `https://serpapi.com/hotels?city=${city}&apikey=${API_KEY}`
-    );
+  const fetchHotels = async (city, searchDates) => {
+    setLoading(true);
+    setError(null);
+    setHotels([]);
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+    try {
+      const params = new URLSearchParams({
+        engine: 'google_hotels',
+        q: city,
+        check_in_date: searchDates.checkIn.format('YYYY-MM-DD'),
+        check_out_date: searchDates.checkOut.format('YYYY-MM-DD'),
+        api_key: API_KEY,
+      });
+
+      const response = await fetch(`/api/search?${params}`);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+
+      if (data.error) {
+        throw new Error(data.error);
+      }
+
+      setHotels(data.properties || []);
+    } catch (err) {
+      console.error('Error fetching hotels:', err);
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
-
-    const data = await response.json();
-    setHotels(data.hotels || []);
-  } catch (error) {
-    console.error("Error fetching hotels:", error);
-  }
-};
-
+  };
 
   return (
-    <div className="bg-white text-black px-20 py-20 w-full min-h-screen">
+    <div className='bg-white text-black px-20 py-20 w-full min-h-screen'>
       {/* Search Bar */}
-      <div className="mb-6">
+      <div className='flex flex-col md:flex-row gap-4 mb-6 items-center'>
         <input
           type="text"
           placeholder="Sök"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-50% border border-gray-200 rounded-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-orange-400"
+          className='w-full md:w-1/2 border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-orange-400'
         />
+        <DateRangePicker value={dates} onChange={setDates} />
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-6 border-b border-gray-300 mb-6">
+      <div className='flex gap-6 border-b border-gray-300 mb-6'>
         {['overview', 'reviews', 'about'].map((tab) => (
           <button
             key={tab}
@@ -62,39 +91,51 @@ export default function Stays() {
       </div>
 
       {/* Tab Content */}
-      <div className="mb-8">
+      <div className='mb-8'>
         {activeTab === 'overview' && (
           <div>
-            <h2 className="text-xl font-semibold mb-3"></h2>
-            <p className="text-gray-700 leading-relaxed mb-6"></p>
-            <h3 className="text-lg font-semibold mb-3"></h3>
-            <div className="space-y-4 max-h-80 overflow-y-auto pr-2">
-              {hotels.length > 0 ? (
-                hotels.map((hotel, idx) => (
+            <div className='space-y-4 max-h-[60vh] overflow-y-auto pr-2'>
+              {loading && <p>Loading hotels...</p>}
+              {error && <p className='text-red-500'>Error: {error}</p>}
+              {!loading &&
+                !error &&
+                hotels.length > 0 &&
+                hotels.map((hotel) => (
                   <div
-                    key={idx}
-                    className="flex justify-between items-center bg-gray-100 rounded-xl p-4 shadow-md"
+                    key={hotel.data_id}
+                    className='flex justify-between items-center bg-gray-50 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow'
                   >
-                    <div>
-                      <h4 className="font-bold text-lg">{hotel.name}</h4>
-                      <p className="text-sm text-gray-600">
-                        ⭐ {hotel.rating} • {hotel.reviews} recensioner •{' '}
-                        {hotel.distance} km från centrum
-                      </p>
-                      <span className="inline-block mt-2 bg-orange-500 text-white px-3 py-1 rounded-lg font-semibold">
-                        ${hotel.price}
-                      </span>
+                    <div className='flex-grow pr-4'>
+                      <h4 className='font-bold text-lg'>{hotel.name}</h4>
+                      {hotel.overall_rating && (
+                        <p className='text-sm text-gray-600'>
+                          ⭐ {hotel.overall_rating} ({hotel.reviews || 0}{' '}
+                          reviews)
+                        </p>
+                      )}
+                      {hotel.rate_per_night && (
+                        <span className='inline-block mt-2 bg-orange-500 text-white px-3 py-1 rounded-lg font-semibold text-sm'>
+                          {hotel.rate_per_night.lowest}
+                        </span>
+                      )}
                     </div>
-                    <img
-                      src={hotel.image}
-                      alt={hotel.name}
-                      className="w-28 h-20 rounded-lg object-cover"
-                    />
+                    {hotel.images?.[0]?.thumbnail && (
+                      <img
+                        src={hotel.images[0].thumbnail}
+                        alt={hotel.name}
+                        className='w-28 h-20 rounded-lg object-cover flex-shrink-0'
+                      />
+                    )}
                   </div>
-                ))
-              ) : (
-                <p className="text-gray-500 italic"></p>
-              )}
+                ))}
+              {!loading &&
+                !error &&
+                hotels.length === 0 &&
+                search.length > 2 && (
+                  <p className='text-gray-500 italic'>
+                    No hotels found for "{search}". Try a different city.
+                  </p>
+                )}
             </div>
           </div>
         )}
