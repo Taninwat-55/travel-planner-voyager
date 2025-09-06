@@ -286,8 +286,8 @@ const Explore = () => {
   if (selectedDestination) {
     return (
       <div className="min-h-screen bg-white">
-        <div className="flex justify-between items-center px-8 py-6 border-b border-gray-200">
-          <div className="flex items-center gap-4">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center px-4 md:px-8 py-6 border-b border-gray-200">
+          <div className="flex items-center gap-4 mb-4 sm:mb-0">
             <button onClick={() => setSelectedDestination(null)} className="flex items-center gap-2 text-gray-600 hover:text-gray-800 font-bold">
               <ArrowLeft size={20} />
               <span>Tillbaka</span>
@@ -295,7 +295,7 @@ const Explore = () => {
             <h1 className="text-2xl font-bold">{selectedDestination.name}</h1>
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-6 p-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 p-4 md:p-8">
           {selectedDestination.extraImages.map((img, index) => (
             <img
               key={index}
@@ -305,7 +305,7 @@ const Explore = () => {
             />
           ))}
         </div>
-        <div className="px-8 pb-8">
+        <div className="px-4 md:px-8 pb-8">
           <h2 className="text-xl font-bold mb-3">Om {selectedDestination.name}</h2>
           <div className="text-gray-600 text-lg prose" dangerouslySetInnerHTML={{ __html: selectedDestination.info }} />
         </div>
@@ -381,7 +381,7 @@ const Explore = () => {
         .price-range-container input[type=range]:focus { outline: none; }
       `}</style>
 
-      <div className="flex justify-between items-center px-8 py-6 border-b border-gray-200">
+      <div className="flex justify-between items-center px-4 md:px-8 py-6 border-b border-gray-200">
         <h1 className="text-2xl font-bold">Utvalda Destinationer</h1>
         <button onClick={() => setIsFilterOpen(true)} className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50 font-bold">
           <Filter size={18} />
@@ -390,8 +390,8 @@ const Explore = () => {
       </div>
 
       {isFilterOpen && (
-        <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 bg-black/40">
-          <div className="w-[92%] max-w-[900px] rounded-2xl bg-gray-200 shadow-2xl p-8">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40">
+          <div className="w-full h-full md:w-[92%] md:max-w-[900px] md:h-auto rounded-2xl bg-gray-200 shadow-2xl p-4 md:p-8 overflow-y-auto">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-2xl font-bold">Filters</h2>
               <button onClick={() => setIsFilterOpen(false)} className="px-3 py-1 rounded-full bg-white shadow font-bold">Close</button>
@@ -483,10 +483,10 @@ const Explore = () => {
               </div>
             </div>
 
-            <div className="flex items-center justify-between mt-6">
-              <button onClick={clearFilters} className="px-4 py-2 rounded-lg bg-white border hover:bg-gray-50 font-bold">Clear All</button>
-              <div className="flex gap-3">
-                <div className="px-4 py-2 rounded-lg bg-white border text-gray-700 flex items-center gap-2 font-bold">Showing <span className="font-bold">{filteredDestinations.length}</span></div>
+            <div className="flex flex-col sm:flex-row items-center justify-between mt-6 gap-4">
+              <button onClick={clearFilters} className="w-full sm:w-auto px-4 py-2 rounded-lg bg-white border hover:bg-gray-50 font-bold">Clear All</button>
+              <div className="flex gap-3 w-full sm:w-auto justify-end">
+                <div className="px-4 py-2 rounded-lg bg-white border text-gray-700 flex items-center gap-2 font-bold flex-1">Showing <span className="font-bold">{filteredDestinations.length}</span></div>
                 <button onClick={() => setIsFilterOpen(false)} className="px-5 py-2 rounded-lg bg-orange-500 text-white hover:bg-orange-600 font-bold">Apply</button>
               </div>
             </div>
@@ -495,11 +495,11 @@ const Explore = () => {
       )}
 
       {/* First Row */}
-      <div className="relative px-8 py-8">
-        <button onClick={() => scroll(scrollContainerRef1, 'left')} className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-3 hover:bg-gray-50">
+      <div className="relative px-4 md:px-8 py-8">
+        <button onClick={() => scroll(scrollContainerRef1, 'left')} className="hidden md:block absolute left-4 top-1/2 transform -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-3 hover:bg-gray-50">
           <ChevronLeft size={20} className="text-gray-600" />
         </button>
-        <button onClick={() => scroll(scrollContainerRef1, 'right')} className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-3 hover:bg-gray-50">
+        <button onClick={() => scroll(scrollContainerRef1, 'right')} className="hidden md:block absolute right-4 top-1/2 transform -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-3 hover:bg-gray-50">
           <ChevronRight size={20} className="text-gray-600" />
         </button>
         <div ref={scrollContainerRef1} className="flex gap-8 overflow-x-auto scrollbar-hide pb-4 snap-x snap-mandatory">
@@ -509,7 +509,7 @@ const Explore = () => {
                 <img
                   src={destination.image}
                   alt={destination.name}
-                  className="w-full h-52 object-cover"
+                  className="w-full aspect-video object-cover"
                 />
               </div>
               <div className="mt-3 flex items-center justify-between">
@@ -525,11 +525,11 @@ const Explore = () => {
       </div>
 
       {/* Second Row */}
-      <div className="relative px-8 py-8">
-        <button onClick={() => scroll(scrollContainerRef2, 'left')} className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-3 hover:bg-gray-50">
+      <div className="relative px-4 md:px-8 py-8">
+        <button onClick={() => scroll(scrollContainerRef2, 'left')} className="hidden md:block absolute left-4 top-1/2 transform -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-3 hover:bg-gray-50">
           <ChevronLeft size={20} className="text-gray-600" />
         </button>
-        <button onClick={() => scroll(scrollContainerRef2, 'right')} className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-3 hover:bg-gray-50">
+        <button onClick={() => scroll(scrollContainerRef2, 'right')} className="hidden md:block absolute right-4 top-1/2 transform -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-3 hover:bg-gray-50">
           <ChevronRight size={20} className="text-gray-600" />
         </button>
         <div ref={scrollContainerRef2} className="flex gap-8 overflow-x-auto scrollbar-hide pb-4 snap-x snap-mandatory">
@@ -539,7 +539,7 @@ const Explore = () => {
                 <img
                   src={destination.image}
                   alt={destination.name}
-                  className="w-full h-52 object-cover"
+                  className="w-full aspect-video object-cover"
                 />
               </div>
               <div className="mt-3 flex items-center justify-between">

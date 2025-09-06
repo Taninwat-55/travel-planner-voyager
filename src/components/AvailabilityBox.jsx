@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { addTravelEntry } from '../utils/travelPlanStorage';
-import { useAuth } from '../hooks/useAuth'; // Importera den nya hooken
+import { useAuth } from '../hooks/useAuth';
 
 export default function AvailabilityBox({ hotel }) {
   const [showAvailability, setShowAvailability] = useState(false);
@@ -11,29 +11,24 @@ export default function AvailabilityBox({ hotel }) {
 
   const handleBooking = (room) => {
     if (!isAuthenticated) {
-      // Om användaren inte är inloggad, skicka dem till inloggningssidan.
-      // Vi skickar med nuvarande sida så att de kan komma tillbaka hit efter inloggning.
       navigate('/login', { state: { from: location } });
       return;
     }
     
-    // Skapa en post för resplanen
     const newEntry = {
       destination: hotel.name,
-      checkIn: new Date().toISOString().slice(0, 10), // Platshållardatum
-      checkOut: new Date(Date.now() + 86400000).toISOString().slice(0, 10), // Imorgon
+      checkIn: new Date().toISOString().slice(0, 10),
+      checkOut: new Date(Date.now() + 86400000).toISOString().slice(0, 10),
       guests: 2,
       notes: `Bokat: ${room.type}. Pris: ${room.price}.`,
     };
 
     addTravelEntry(newEntry);
-
-    // Navigera till bekräftelsesidan
     navigate('/booking-confirmation', { state: { hotel, room } });
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-md p-5 sticky top-4 w-full max-w-sm h-auto">
+    <div className="bg-white rounded-xl shadow-md p-5 w-full md:w-auto lg:w-96 lg:sticky lg:top-4 h-auto">
       {hotel.rate_per_night && (
         <div className="flex justify-between items-center mb-3">
           <p className="text-base font-bold">Pris per natt från</p>

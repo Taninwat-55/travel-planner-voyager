@@ -32,13 +32,14 @@ export default function HotelCard({ hotel, onReviewClick }) {
   };
 
   return (
-    <div className='bg-white rounded-lg shadow-md overflow-hidden h-full hover:scale-105 transition-transform duration-200'>
+    <div className='bg-white rounded-lg shadow-md overflow-hidden hover:scale-105 transition-transform duration-200'>
       <Link to={`/hotel/${hotelId}`} state={{ hotel: hotel }} className='block'>
         <div className='relative'>
           <img
             src={hotel.images[0].thumbnail}
             alt={hotel.name}
-            className='w-full h-48 object-cover'
+            // Use a responsive aspect ratio instead of a fixed height
+            className='w-full aspect-video object-cover'
           />
 
           {/* Favorite Knapp */}
@@ -77,7 +78,6 @@ export default function HotelCard({ hotel, onReviewClick }) {
             </p>
           )}
 
-          {/* <p className="text-gray-600">15–17 September 2025</p> */}
           {hotel.rate_per_night && (
             <p className='font-semibold mt-2'>
               {hotel.rate_per_night.lowest} per natt
@@ -92,32 +92,16 @@ export default function HotelCard({ hotel, onReviewClick }) {
                 e.preventDefault();
                 onReviewClick(hotelWithDetails);
               }}
-              s
             >
               Review
             </button>
           )}
 
-          {/* Link to hotel page */}
           <p className='block mt-2 text-blue-500 hover:underline'>
             View Details
           </p>
-          {/* <Link
-            to={`/hotel/${hotelId}`}
-            state={{ hotel: hotelWithDetails }}
-            className='block mt-2 text-blue-500 hover:underline'
-          >
-            View Details
-          </Link> */}
         </div>
       </Link>
-      {/* {hotel.images?.[0] && (
-        <img
-          src={hotel.images[0].thumbnail}
-          alt={hotel.name}
-          className="w-full h-48 object-cover"
-        />
-      )} */}
     </div>
   );
 }
