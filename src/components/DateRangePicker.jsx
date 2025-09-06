@@ -8,7 +8,7 @@ export default function DateRangePicker({ value, onChange }) {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <div className="flex gap-2">
+      <div className="flex flex-col sm:flex-row gap-4 sm:gap-2">
         <DatePicker
           label="Check-in"
           value={checkIn}
@@ -21,6 +21,7 @@ export default function DateRangePicker({ value, onChange }) {
                   : checkOut,
             })
           }
+          className="w-full sm:w-auto"
         />
 
         <DatePicker
@@ -28,6 +29,7 @@ export default function DateRangePicker({ value, onChange }) {
           value={checkOut}
           minDate={checkIn ? checkIn.add(1, 'day') : undefined}
           onChange={(newValue) => onChange({ checkIn, checkOut: newValue })}
+          className="w-full sm:w-auto"
         />
       </div>
     </LocalizationProvider>
