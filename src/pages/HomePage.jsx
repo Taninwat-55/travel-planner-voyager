@@ -42,7 +42,7 @@ export default function HomePage() {
           <div className='absolute inset-0 flex flex-col items-center justify-center bg-black/30 text-center px-4'>
             {/* Title */}
             <h2 className='text-white text-4xl md:text-5xl mb-6 drop-shadow-lg font-[var(--font-family)]'>
-              Find your next stay
+              Hitta ditt nästa boende
             </h2>
             {/* Search Bar */}
             <SearchForm onSearch={handleSearch} />

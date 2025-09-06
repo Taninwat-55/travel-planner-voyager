@@ -49,7 +49,7 @@ export default function HotelList({
     } catch (err) {
       if (err.name === 'TypeError') {
         setError(
-          'Network Error: Could not connect to the server. Check your internet connection.'
+          'Nätverksfel: Kunde inte ansluta till servern. Kontrollera din internetanslutning.'
         );
       } else {
         setError(err.message);
